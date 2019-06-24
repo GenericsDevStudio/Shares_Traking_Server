@@ -37,6 +37,10 @@ module Api
         render json: true, status: :ok
       end
 
+      def getFavorites
+        
+      end
+
       def authorization
         @user = User.find_by(email: params[:email],
             password: User.getSecurePassword(params[:password]))
