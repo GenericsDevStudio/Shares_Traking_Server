@@ -10,6 +10,21 @@ module Api
         end
       end
 
+      def edit
+        @share = Share.find_by(symbol: params[:symbol])
+        if @share.update_attributes(updating_params)
+          render json: @share, status: :ok
+        else
+          render json: @share.errors, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        @share = Share.find(params[:id])
+        @share.destroy
+        render json: true, status: :ok
+      end
+
       def index
         @shares = Share.all
         render json: @shares, status: :ok
@@ -22,6 +37,11 @@ module Api
       end
 
       private
+
+      def updating_params
+        params.permit(:price, :change, :persentChange, :volume,
+          :marketCap, :ratio)
+      end
 
       def share_params
         params.permit(:symbol, :name, :price, :change, :persentChange, :volume,
