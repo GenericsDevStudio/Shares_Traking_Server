@@ -18,7 +18,7 @@ module Api
       def companies
         @companies = Share.all.map { |company| { id: company.id, name: company.name,
           symbol: company.symbol } }
-        render json: { companies: @companies }, status: :ok
+        render json: @companies , status: :ok
       end
 
       private
